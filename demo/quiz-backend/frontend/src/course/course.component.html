@@ -1,0 +1,17 @@
+<form class="example-form">
+  <mat-card class="example-card">    
+    <mat-card-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>نام دوره</mat-label>
+            <input [(ngModel)]="Course.name" name="name" matInput placeholder="دوره">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">              
+            <mat-label>توضیحات دوره</mat-label>
+            <input [(ngModel)]="Course.description" name="description" matInput placeholder="توضیحات">
+          </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="create()">ثبت</button>      
+    </mat-card-actions>
+  </mat-card>
+</form>

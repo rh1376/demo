@@ -1,0 +1,25 @@
+<form class="example-form">
+    <mat-card class="example-card">    
+      <mat-card-content>
+          <mat-form-field class="example-full-width">
+              <mat-label>نام درس</mat-label>
+              <input [(ngModel)]="Lesson.name" name="name" matInput placeholder="درس">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">              
+              <mat-label>توضیحات درس</mat-label>
+              <input [(ngModel)]="Lesson.description" name="description" matInput placeholder="توضیحات">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>دوره</mat-label>
+              <mat-select [(ngModel)]="Lesson.courseId" name="courseId">
+                <mat-option *ngFor="let Course of Courses" [value]="Course.id">
+                  {{Course.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="create()">ثبت</button>      
+      </mat-card-actions>
+    </mat-card>
+  </form>
