@@ -7,36 +7,34 @@ import { Component, OnInit } from '@angular/core';
     selector: 'course',
     templateUrl: './../course/course.Component.html',    
 })
-export class CourseComponent implements OnInit{
-    Course = new Course();
+export class CourseComponent{
+    Course: Course = {};
     Courses: any;
 
     constructor(public CourseService: CourseService) {}
     
-    ngOnInit() {
-        this.CourseService.getAllCourses().subscribe(response => {
-            this.Courses = response;
-        });
-    }
 
-    create() {
-        this.CourseService.createCourse(this.Course)
+    create(Course) {
+        this.CourseService.createCourse(Course)
         .subscribe((response : Course) => {
-            this.Course.id = response.id;
+            Course.id = response.id;
         });
+        Course.id = 0;
+        Course.name = "";
+        Course.description = "";
     }
 
-    update() {
-        this.CourseService.updateCourse(this.Course)
+    update(Course) {
+        this.CourseService.updateCourse(Course)
         .subscribe(response => {
             console.log(response);
         });
     }
 
-    delete() {
-        this.CourseService.deleteCourse(this.Course.id)
+    delete(Course) {
+        this.CourseService.deleteCourse(Course.id)
         .subscribe(response => {
-            let index = this.Courses.indexof(Course);
+            let index = this.Courses.indexof(this.Course);
             this.Courses.splice(index, 1);
         });
   }

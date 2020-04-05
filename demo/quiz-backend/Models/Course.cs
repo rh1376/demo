@@ -7,9 +7,16 @@ namespace quiz_backend.Models
 {
     public class Course
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }        
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }        
         
+    }
+
+    public class CourseCreate
+    {        
+        public string name { get; set; }
+        public string description { get; set; }
+
     }
 }

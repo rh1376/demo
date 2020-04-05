@@ -19,32 +19,34 @@ namespace quiz_backend.Controllers
             this.context = context;
         }
 
-        [HttpGet("all")]
+        [HttpGet("GetAll")]
         public IEnumerable<Models.Course> GetAll()
         {
             return context.Courses;
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Models.Course> Get([FromRoute] int id)
+        public async Task<Models.Course> Get([FromRoute] int id)
         {
-            return context.Courses.Where(q => q.ID == id);
+            return await context.Courses.FirstOrDefaultAsync(q => q.id == id);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]Models.Course Course)
+        public async Task<IActionResult> Create([FromBody]Models.CourseCreate Course)
         {
-            var course = context.Courses.SingleOrDefault(q => q.ID == Course.ID);
-
-            context.Courses.Add(course);
+            Models.Course newCourse = new Models.Course() {
+                description = Course.description,
+                name = Course.name
+            };
+            context.Courses.Add(newCourse);
             await context.SaveChangesAsync();
-            return Ok(course);
+            return Ok(Course);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody]Models.Course Course)
         {
-            if (id != Course.ID)
+            if (id != Course.id)
                 return BadRequest();
 
             context.Entry(Course).State = EntityState.Modified;
@@ -62,7 +64,7 @@ namespace quiz_backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            var course = await context.Courses.SingleOrDefaultAsync(m => m.ID == id);
+            var course = await context.Courses.SingleOrDefaultAsync(m => m.id == id);
             if (course == null)
             {
                 return NotFound();
